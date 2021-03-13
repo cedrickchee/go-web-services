@@ -14,3 +14,6 @@ gowebservices
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Secret keys
+*.pem
