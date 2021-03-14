@@ -20,7 +20,8 @@ func API(build string, shutdown chan os.Signal, log *log.Logger, a *auth.Auth) *
 		log: log,
 	}
 
-	app.Handle(http.MethodGet, "/readiness", check.readiness, mid.Authenticate(a), mid.Authorize(auth.RoleAdmin))
+	app.Handle(http.MethodGet, "/readiness", check.readiness)
+	app.Handle(http.MethodGet, "/liveness", check.readiness)
 
 	return app
 }
