@@ -1,6 +1,6 @@
 # Build the Go Binary.
 FROM golang:1.16 as build_sales-api
-ENV CGO_ENABLE 0
+ENV CGO_ENABLED 0
 ARG VCS_REF
 
 # Create a location in the container for the source code. Using the
