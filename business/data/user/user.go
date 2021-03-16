@@ -119,7 +119,7 @@ func (u User) Update(ctx context.Context, traceID string, claims auth.Claims, us
 		database.Log(q, usr.ID, usr.Name, usr.Email, usr.PasswordHash, usr.Roles, usr.DateCreated, usr.DateUpdated),
 	)
 
-	if _, err := u.db.ExecContext(ctx, q, userID, usr.Name, usr.Email, usr.PasswordHash, usr.DateUpdated); err != nil {
+	if _, err = u.db.ExecContext(ctx, q, userID, usr.Name, usr.Email, usr.Roles, usr.PasswordHash, usr.DateUpdated); err != nil {
 		return errors.Wrap(err, "updating user")
 	}
 
@@ -200,7 +200,7 @@ func (u User) QueryByID(ctx context.Context, traceID string, claims auth.Claims,
 		return Info{}, errors.Wrapf(err, "selecting user %q", userID)
 	}
 
-	return Info{}, nil
+	return usr, nil
 }
 
 // QueryByEmail gets the specified user from the database by email.
