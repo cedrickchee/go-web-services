@@ -55,8 +55,8 @@ func NewUnit(t *testing.T) (*log.Logger, *sqlx.DB, func()) {
 	var pingError error
 	maxAttempts := 20
 	for attempts := 1; attempts <= maxAttempts; attempts++ {
-		pingError := db.Ping()
-		if pingError != nil {
+		pingError = db.Ping()
+		if pingError == nil {
 			break
 		}
 		time.Sleep(time.Duration(attempts) * 100 * time.Millisecond)
