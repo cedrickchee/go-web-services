@@ -11,6 +11,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/cedrickchee/gowebservices/business/data/schema"
+	"github.com/cedrickchee/gowebservices/foundation/database"
 	"github.com/dgrijalva/jwt-go"
 )
 
@@ -22,7 +24,36 @@ import (
 
 func main() {
 	// keygen()
-	tokengen()
+	// tokengen()
+	migrate()
+}
+
+func migrate() {
+	cfg := database.Config{
+		User:       "postgres",
+		Password:   "postgres",
+		Host:       "0.0.0.0",
+		Name:       "postgres",
+		DisableTLS: true,
+	}
+
+	db, err := database.Open(cfg)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer db.Close()
+
+	if err := schema.Migrate(db); err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println("migrations complete")
+
+	if err := schema.Seed(db); err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println("seed data complete")
 }
 
 func tokengen() {
