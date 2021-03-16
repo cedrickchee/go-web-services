@@ -2,12 +2,12 @@ package mid
 
 import (
 	"context"
-	"errors"
 	"net/http"
 	"strings"
 
 	"github.com/cedrickchee/gowebservices/business/auth"
 	"github.com/cedrickchee/gowebservices/foundation/web"
+	"github.com/pkg/errors"
 )
 
 // ErrForbidden is returned when an authenticated user does not have a
