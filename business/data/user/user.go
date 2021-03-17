@@ -117,7 +117,7 @@ func (u User) Update(ctx context.Context, traceID string, claims auth.Claims, us
 		user_id = $1`
 
 	u.log.Printf("%s : %s : query : %s", traceID, "user.Update",
-		database.Log(q, usr.ID, usr.Name, usr.Email, usr.PasswordHash, usr.Roles, usr.DateCreated, usr.DateUpdated),
+		database.Log(q, usr.ID, usr.Name, usr.Email, usr.Roles, usr.PasswordHash, usr.DateUpdated),
 	)
 
 	if _, err = u.db.ExecContext(ctx, q, userID, usr.Name, usr.Email, usr.Roles, usr.PasswordHash, usr.DateUpdated); err != nil {
