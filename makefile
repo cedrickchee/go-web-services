@@ -1,6 +1,18 @@
 SHELL := /bin/bash
 
 # ==============================================================================
+# Testing running system
+
+# For testing a simple query on the system. Don't forget to `make seed` first.
+# curl --user "admin@example.com:sup3rS3cr3tGolang" http://localhost:3000/users/token/8ea09532-9245-8623-923d-3201212966b1
+# export TOKEN="COPY TOKEN STRING FROM LAST CALL"
+# curl -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/users/1/2
+
+# For testing load on the service.
+# hey -m GET -c 100 -n 10000 -H "Authorization: Bearer ${TOKEN}" http://localhost:3000/users/1/2
+# expvarmon -ports=":4000" -vars="build,requests,goroutines,errors,mem:memstats.Alloc"
+
+# ==============================================================================
 # Building containers
 
 all: sales-api
