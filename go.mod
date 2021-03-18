@@ -16,6 +16,9 @@ require (
 	github.com/lib/pq v1.10.0
 	github.com/pkg/errors v0.9.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.18.0
+	go.opentelemetry.io/otel v0.18.0
+	go.opentelemetry.io/otel/exporters/trace/zipkin v0.18.0
+	go.opentelemetry.io/otel/sdk v0.18.0
 	go.opentelemetry.io/otel/trace v0.18.0
 	golang.org/x/crypto v0.0.0-20210314154223-e6e6c4f2bb5b
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
