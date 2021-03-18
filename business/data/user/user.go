@@ -13,6 +13,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -152,6 +153,9 @@ func (u User) Delete(ctx context.Context, traceID string, claims auth.Claims, us
 
 // Query retrieves a list of existing users from the database.
 func (u User) Query(ctx context.Context, traceID string, pageNumber int, rowsPerPage int) ([]Info, error) {
+	ctx, span := trace.SpanFromContext(ctx).Tracer().Start(ctx, "business.data.user.query")
+	defer span.End()
+
 	const q = `
 	SELECT
 		*

@@ -8,6 +8,7 @@ import (
 	"github.com/cedrickchee/gowebservices/business/auth"
 	"github.com/cedrickchee/gowebservices/foundation/web"
 	"github.com/pkg/errors"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // ErrForbidden is returned when an authenticated user does not have a
@@ -25,6 +26,8 @@ func Authenticate(a *auth.Auth) web.Middleware {
 
 		// Create the handler that will be attached in the middleware chain.
 		h := func(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
+			ctx, span := trace.SpanFromContext(ctx).Tracer().Start(ctx, "business.mid.authenticate")
+			defer span.End()
 
 			// Parse the authorization header.
 			// Expected header is of the format `Bearer <token>`.
@@ -63,6 +66,8 @@ func Authorize(roles ...string) web.Middleware {
 
 		// Create the handler that will be attached in the middleware chain.
 		h := func(ctx context.Context, w http.ResponseWriter, r *http.Request) error {
+			ctx, span := trace.SpanFromContext(ctx).Tracer().Start(ctx, "business.mid.authorize")
+			defer span.End()
 
 			// If the context is missing this value, return failure.
 			claims, ok := ctx.Value(auth.Key).(auth.Claims)
